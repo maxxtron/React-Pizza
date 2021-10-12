@@ -1,11 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const SostPopup = () => {
+const SostPopup = ({ items }) => {
+  //state для "сортировка по:"
+  const [activeLabel, setActiveLabel] = useState("популярности");
+
+  //видимость для popup
   const [visiblePopup, setVisiblePopup] = useState(false);
 
   // меняем visilePopup на true или false
   const handleVisiblePopup = () => {
     setVisiblePopup(!visiblePopup);
+  };
+
+  //активный класс для списка в popup
+  const [active, setActive] = useState(0);
+
+  //задаем active итему в popup списке и заменяем название в "сортировка по" и закрываем popup
+  const hanldeActivePopup = (index, item) => {
+    //меняем active
+    setActive(index);
+    //меняем sort
+    setActiveLabel(item);
+    //закрываем popup
+    setVisiblePopup(false);
   };
 
   // скрываем popup если клик был не по нему
@@ -14,7 +31,7 @@ const SostPopup = () => {
     return !e.path.includes(sortRef.current) ? setVisiblePopup(false) : null;
   };
 
-  // отслеживаем все клики по всему документу
+  // отслеживаем все клики по всему документу (после первого рэндера)
   useEffect(() => {
     document.body.addEventListener("click", handleOutsideClick);
   }, []);
@@ -25,6 +42,7 @@ const SostPopup = () => {
     <div ref={sortRef} className='sort'>
       <div className='sort__label'>
         <svg
+          className={visiblePopup ? "rotated" : ""}
           width='10'
           height='6'
           viewBox='0 0 10 6'
@@ -37,15 +55,22 @@ const SostPopup = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={handleVisiblePopup}>популярности</span>
+        <span onClick={handleVisiblePopup}>{activeLabel}</span>
       </div>
       {/* если visiblePopape = true , то показываем список сортировки */}
       {visiblePopup && (
         <div className='sort__popup'>
           <ul>
-            <li className='active'>популярности</li>
-            <li>цене</li>
-            <li>алфавиту</li>
+            {items.map((item, index) => (
+              <li
+                //передаем индекс для активного класса и итем для замены надписи в "сортировка по:"
+                onClick={() => hanldeActivePopup(index, item)}
+                key={`${item}_${index}`}
+                className={active === index ? "active" : ""}
+              >
+                {item}
+              </li>
+            ))}
           </ul>
         </div>
       )}

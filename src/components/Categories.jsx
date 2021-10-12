@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Categorios = ({ categoriesName }) => {
+const Categorios = ({ categoriesName, onClickItem }) => {
   const [active, setActive] = useState(1);
   //добавляем active class по id элемента
   const changeClassName = (item) => {

@@ -28,28 +28,14 @@ function App() {
       id: 6,
     },
   ]);
-  // Если active добавлять к обьекту и брать из базы данные и менять там
-  // const handleChangeClass = (item) => {
-  //   setCategoriesName(
-  //     categoriesName.filter((items) => {
-  //       return [
-  //         items.id === item ? (items.active = true) : (items.active = false),
-  //         ...categoriesName,
-  //       ];
-  //     })
-  //   );
-  // };
   return (
     <div className='wrapper'>
       <Header />
       <div className='content'>
         <div className='container'>
           <div className='content__top'>
-            <Categories
-              categoriesName={categoriesName}
-              // handleChangeClass={handleChangeClass}
-            />
-            <SortPopup />
+            <Categories categoriesName={categoriesName} />
+            <SortPopup items={["популярности", "цене", "алфавиту"]} />
           </div>
           <h2 className='content__title'>Все пиццы</h2>
           <div className='content__items'>
