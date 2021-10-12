@@ -4,7 +4,8 @@
 
 ### Full stack:
 
-- ReactJS
+- SASS (preproccessor css / препроцессор css)
+- ReactJS (functional components and hooks / функциональные компоненты и хуки)
 - Redux (a library for storing data on the client side / библиотека для хранения данных на клиентской части)
 - redux-thunk (additional library for Redux. Asynchronous actions / доп. библиотека для Redux. Асинхроные действия).
 - React Router (a library for implementing transitions without page reloading / библиотека для реализации переходов без перезагрузки страницы).
