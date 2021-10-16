@@ -7,7 +7,7 @@ const Categorios = ({ categoriesName, onClickItem }) => {
     setActive(item);
   };
   return (
-    <div className='categories'>
+    <div className="categories">
       <ul>
         {categoriesName.map((item) => {
           return (

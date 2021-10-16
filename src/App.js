@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route } from "react-router";
 import { Header } from "./components";
 import { Home, Cart } from "./pages";
 
 function App() {
+  const [pizzas, setPizzas] = useState([]);
+  // при первом рендере получаем данные с фэйк базы через useEffect
+  useEffect(() => {
+    fetch("http://localhost:3000/db.json")
+      .then((res) => res.json())
+      .then((json) => {
+        setPizzas(json.pizzas);
+      });
+  }, []);
   const [categoriesName] = useState([
     {
       name: "Все",
@@ -31,16 +40,18 @@ function App() {
     },
   ]);
   return (
-    <div className='wrapper'>
+    <div className="wrapper">
       <Header />
-      <div className='content'></div>
+      <div className="content"></div>
       {/* Что б на главной всегда светился контент */}
       <Route
-        path='/'
-        render={() => <Home categoriesName={categoriesName} />}
+        path="/"
+        render={() => (
+          <Home categoriesName={categoriesName} pizzasItems={pizzas} />
+        )}
         exact
       />
-      <Route path='Cart' component={Cart} />
+      <Route path="Cart" component={Cart} />
     </div>
   );
 }
